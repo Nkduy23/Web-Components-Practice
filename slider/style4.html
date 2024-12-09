@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .carousel {
+        width: 800px;
+        height: auto;
+        overflow: hidden;
+      }
+      .carousel-container {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+      }
+      .slide {
+        min-width: 100%;
+      }
+      .action {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel">
+      <div class="carousel-container">
+        <img class="slide" src="img/slider1-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider2-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider3-pc.jpg" alt="Slider" />
+      </div>
+      <div class="action">
+        <button class="prev">Previous</button>
+        <button class="next">Next</button>
+      </div>
+    </div>
+    <script>
+      const container = document.querySelector(".carousel-container");
+      console.log(container);
+      let offSet = 0;
+      setInterval(() => {
+        offSet = (offSet + 1) % container.children.length;
+        container.style.transform = `translate(-${offSet * 100}%)`;
+      }, 3000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider3</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .slider-container {
+        width: 800px;
+        height: auto;
+        overflow: hidden;
+      }
+      .slides {
+        display: flex;
+        animation: autoPlay 6s infinite;
+      }
+      .slide {
+        min-width: 100%;
+      }
+      .action {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+      @keyframes autoPlay {
+        0%,
+        33% {
+          transform: translateX(0);
+        }
+        34%,
+        66% {
+          transform: translateX(-100%);
+        }
+        67%,
+        100% {
+          transform: translateX(-200%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-container">
+      <div class="slides">
+        <img class="slide" src="img/slider1-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider2-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider3-pc.jpg" alt="Slider" />
+      </div>
+      <div class="action">
+        <button class="prev">Previous</button>
+        <button class="next">Next</button>
+      </div>
+    </div>
+  </body>
+</html>

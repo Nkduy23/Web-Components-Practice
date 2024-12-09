@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .slider-container {
+        width: 800px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .slides {
+        display: flex;
+        cursor: grabbing;
+        transition: transform 0.3s ease;
+      }
+
+      .slide {
+        min-width: 100%;
+        text-align: center;
+        background: #f0f0f0;
+        line-height: 300px;
+        font-size: 2rem;
+        border: 1px solid #ddd;
+        -webkit-user-drag: none; /* CSS để vô hiệu kéo hình ảnh */
+        user-select: none; /* Vô hiệu chọn hình ảnh */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-container">
+      <div class="slides">
+        <img class="slide" src="img/slider1-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider2-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider3-pc.jpg" alt="Slider" />
+      </div>
+    </div>
+    <script>
+      const slider = document.querySelector(".slides");
+      const slides = document.querySelectorAll(".slide");
+      let isDragging = false;
+      let startX = 0;
+      let currentX = 0;
+      let currentIndex = 0;
+
+      // Lắng nghe sự kiện bắt đầu kéo
+      slider.addEventListener("mousedown", (e) => {
+        startX = e.clientX;
+        isDragging = true;
+        slider.style.transition = "none"; // Tắt animation khi kéo
+      });
+
+      // Lắng nghe sự kiện kéo chuột
+      slider.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX - startX;
+        slider.style.transform = `translateX(calc(${-currentIndex * 100}% + ${currentX}px))`; // Cập nhật vị trí kéo
+      });
+
+      // Lắng nghe sự kiện thả chuột
+      slider.addEventListener("mouseup", () => {
+        isDragging = false;
+        // Điều kiện quyết định di chuyển slide
+        if (Math.abs(currentX) > 100) {
+          if (currentX < 0) {
+            currentIndex += 1; // Kéo sang trái
+          } else {
+            currentIndex -= 1; // Kéo sang phải
+          }
+        }
+        // Đảm bảo currentIndex trong phạm vi hợp lệ
+        if (currentIndex < 0) {
+          currentIndex = slides.length - 1;
+        } else if (currentIndex >= slides.length) {
+          currentIndex = 0;
+        }
+        // Đặt lại vị trí và bật lại animation
+        slider.style.transition = "transform 0.3s ease";
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        currentX = 0;
+      });
+
+      // Lắng nghe sự kiện khi rời chuột
+      slider.addEventListener("mouseleave", () => {
+        isDragging = false;
+        // Đảm bảo chuyển slide đúng
+        slider.style.transition = "transform 0.3s ease";
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+      });
+    </script>
+  </body>
+</html>
