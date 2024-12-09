@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider2</title>
+    <style>
+      body {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .slider-container {
+        width: 800px;
+        height: auto;
+        overflow: hidden;
+      }
+      .slides {
+        display: flex;
+      }
+      .slide {
+        min-width: 100%;
+      }
+      .action {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-container">
+      <div class="slides">
+        <img class="slide" src="img/slider1-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider2-pc.jpg" alt="Slider" />
+        <img class="slide" src="img/slider3-pc.jpg" alt="Slider" />
+      </div>
+      <div class="action">
+        <button class="prev">Previous</button>
+        <button class="next">Next</button>
+      </div>
+    </div>
+    <script>
+      // Tạo các biến lưu các giá trị cần thiết
+      const slides = document.querySelector(".slides");
+      let totalSlide = document.querySelectorAll(".slide").length;
+      let isPaused = false;
+      let currentIndex = 0;
+      let autoPlayInterval;
+
+      const updateSlide = () => {
+        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        setTimeout(() => {
+          isPaused = false;
+          autoPlay();
+        }, 6000);
+      };
+      // Hàm auto play
+      const autoPlay = () => {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(() => {
+          currentIndex = (currentIndex + 1) % totalSlide;
+          slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }, 3000);
+      };
+
+      // Lắng nghe sự kiện click
+      document.querySelector(".prev").addEventListener("click", () => {
+        isPaused = true;
+        clearInterval(autoPlayInterval);
+        currentIndex = (currentIndex - 1 + totalSlide) % totalSlide;
+        updateSlide();
+      });
+      document.querySelector(".next").addEventListener("click", () => {
+        isPaused = true;
+        clearInterval(autoPlayInterval);
+        currentIndex = (currentIndex + 1) % totalSlide;
+        updateSlide();
+      });
+      autoPlay();
+    </script>
+  </body>
+</html>

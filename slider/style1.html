@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider1</title>
+    <style>
+      body {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .slider-container {
+        width: 800px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .slides {
+        display: flex;
+      }
+      
+      .slide {
+        min-width: 100%;
+        display: none;
+      }
+
+      .slide.active {
+        display: block;
+      }
+
+      .action {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="slider-container">
+      <div class="slides">
+        <img class="slide active" src="img/slider1-pc.jpg" alt="Slider1" />
+        <img class="slide" src="img/slider2-pc.jpg" alt="Slider2" />
+        <img class="slide" src="img/slider3-pc.jpg" alt="Slider3" />
+      </div>
+      <div class="action">
+        <button class="prev">Previous</button>
+        <button class="next">Next</button>
+      </div>
+    </div>
+    <script>
+    // Truy xuất theo index
+    const slides = document.querySelectorAll(".slide");
+    let currentIndex = 0;
+    console.log(slides);
+
+    // previous
+    document.querySelector(".prev").addEventListener("click", () => {
+      slides[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      slides[currentIndex].classList.add("active");
+    })
+
+    // next
+    document.querySelector(".next").addEventListener("click", () => {
+      slides[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].classList.add("active");
+    })
+    </script>
+  </body>
+</html>
