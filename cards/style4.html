@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch Posts from API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .post-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      .post-item h2 {
+        margin: 0;
+        font-size: 1.2em;
+      }
+      .post-item p {
+        font-size: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Posts</h1>
+    <div id="posts-container"></div>
+
+    <script>
+      const apiUrl = "data.json";
+
+      const newPosts = [
+        { id: 5, title: "New Post 5", body: "This is the fifth post." },
+        { id: 6, title: "New Post 6", body: "This is the sixth post." },
+      ];
+
+      // Hàm gọi API và hiển thị dữ liệu
+      function fetchPosts() {
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            data.push(...newPosts); // Thêm bài viết mới vào danh sách
+            renderPosts(data); // Gọi hàm render với dữ liệu mới
+          })
+          .catch((error) => console.error("Error fetching posts:", error));
+      }
+
+      // Hàm render các bài viết lên trang web
+      function renderPosts(posts) {
+        const postsContainer = document.getElementById("posts-container");
+        postsContainer.innerHTML = ""; // Xóa bất kỳ nội dung cũ nào trong container
+
+        // Lặp qua các bài viết và tạo HTML cho mỗi bài
+        posts.forEach((post) => {
+          const postElement = document.createElement("div");
+          postElement.classList.add("post-item");
+          postElement.innerHTML = `
+          <h2>${post.title}</h2>
+          <p>${post.body}</p>
+        `;
+          postsContainer.appendChild(postElement); // Thêm bài viết vào container
+        });
+      }
+
+      // Gọi hàm fetchPosts khi trang tải
+      window.onload = fetchPosts;
+    </script>
+  </body>
+</html>

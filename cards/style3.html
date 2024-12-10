@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>card3</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+</head>
+<body>
+    <div id="product-container"></div>
+     <!-- Template Handlebars -->
+    <script id="product-template" type="text/x-handlebars-template">
+        <div class="product">
+            {{#each products}}
+            <div class="product-item">
+                <img src="{{this.img}}" alt="{{this.name}}">
+                <h3>{{this.name}}</h3>
+                <p>{{this.price}}</p>
+            </div>
+            {{/each}}
+        </div>
+    </script>
+
+    <script>
+        const products = [
+            {name: "Product 1", price: "100", img: "mwc.jpg"},
+            {name: "Product 2", price: "100", img: "mwc.jpg"},
+            {name: "Product 3", price: "100", img: "mwc.jpg"},
+            {name: "Product 4", price: "100", img: "mwc.jpg"},
+        ];
+
+        // Lấy template Handlebars từ script
+        const templateSource = document.getElementById("product-template").innerHTML;
+
+        // Biên dịch template
+        const template = Handlebars.compile(templateSource);
+
+        // Render dữ liệu vào template
+        const html = template({products: products});
+
+        // Thêm html vào trong container
+        document.getElementById("product-container").innerHTML = html;
+    </script>
+</body>
+</html>

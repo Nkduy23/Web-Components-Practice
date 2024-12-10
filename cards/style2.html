@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>card2</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        width: calc(100% - 48px);
+        margin: 0 auto;
+      }
+      .cards {
+        height: auto;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        column-gap: 10px;
+      }
+      .cards img {
+        width: 100%;
+      }
+      .card-item {
+        position: relative;
+      }
+      h3,
+      p {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="cards" id="products">
+
+      </div>
+    </div>
+    <script>
+      const products = [
+        { img: "mwc.jpg", title: "Hello1", desc: "Mình là Duy" },
+        { img: "mwc.jpg", title: "Hello2", desc: "Mình là Duy" },
+        { img: "mwc.jpg", title: "Hello3", desc: "Mình là Duy" },
+        { img: "mwc.jpg", title: "Hello4", desc: "Mình là Duy" },
+      ];
+
+      const productContainer = document.getElementById("products");
+      products.forEach(product => {
+        const productElement = document.createElement("div");
+        productElement.innerHTML = `
+            <div class="card-item">
+            <img src="${product.img}" alt="hinh1">
+            <h3>${product.title}</h3>
+            <p>${product.desc}</p>
+       </div>
+        `;
+        productContainer.appendChild(productElement);
+      });
+    </script>
+  </body>
+</html>
